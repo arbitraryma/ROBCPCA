@@ -306,33 +306,23 @@ for (j in 1:length(dimen)) {
 # for cluster 1, we consider the main mixture are delta and theta
 # the proportion of the dominated is 95%,  with 5% comes from other frequency band 
 for (i in 1:10) {
- # group1_data_list[[i]] <- apply(do.call(rbind, lapply(bands, function(fband) gen.latent(fband, n))), 
- #                                1, scale) %*% sapply(1:dim, function(x) {
- #                                  gen.coef(c(1,2,3), 0.95)
-  #                               })
+ 
   group1_data_list[[i]] <- apply(do.call(rbind, lapply(bands, function(fband) gen.latent(fband, n))), 
                                  1, scale)  %*% coef1
 }
 
 
-# for cluster 2, we consider the main mixture are   alpha and beta 
+# for cluster 2, we consider the main mixture are  alpha and beta 
 
 for (i in 1:10) {
- # group2_data_list[[i]] <- apply(do.call(rbind, lapply(bands, function(fband) gen.latent(fband, n))), 
- #                                1, scale) %*% sapply(1:dim, function(x) {
- #                                  gen.coef(c(2,3), 0.95)
- #                                })
+ 
   group2_data_list[[i]] <-  apply(do.call(rbind, lapply(bands, function(fband) gen.latent(fband, n))), 
                                   1, scale)  %*% coef2
 }
 
 
 for (i in 1:10) {
- # group3_data_list[[i]] <- apply(do.call(rbind, lapply(bands, function(fband) gen.latent(fband, n))), 
- #                                1, scale) %*% sapply(1:dim, function(x) {
- #                                  gen.coef(c(3,4,5), 0.95)
- #                               })
-  
+
   group3_data_list[[i]] <-  apply(do.call(rbind, lapply(bands, function(fband) gen.latent(fband, n))), 
                                   1, scale)  %*% coef3
 }
@@ -384,9 +374,9 @@ auto_iniac[j,l] <-  adjustedRandIndex(auto_ini,labels)
 }
 
 
-
+# Here, I provided the example result, but it can be different if you run the whole simulation again since our method has many randomizations.
 # the ARI (adjusted random index)
-round(rowMeans(arob[1:3,1:29]),4)
+round(rowMeans(arob[1:3,1:100]),4)
 round(rowMeans(ac[1:3,1:100]),4)
 round(rowMeans(arob1[1:3,1:100]),4)
 round(rowMeans(ac1[1:3,1:100]),4)
