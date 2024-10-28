@@ -364,11 +364,15 @@ robcpca_lag_12 <- function(ts,k,p=NULL)
     while(length(unique(indx))!=k) {
       indx <- sample.int(k,n,replace = TRUE,prob = rep(1/k,k))
     }
-    # renew the cluster 
-    for (r in 1:k) {
-      group[[r]] <- sigma[indx==r]
-      s[[r]] <- comaxe(group[[r]])
-    }    
+   for (j in 1:k) {
+    # in the original paper, they initially average the number l <- n/k, somehow they may cannot
+    # be divided evenly. Here we just consider to devide them nearly equally
+    group[[j]] <- sigma[indx==j]
+    s[[j]] <- comaxe(group[[j]])
+    group2[[j]] <- sigma2[indx == j]
+    s2[[j]] <- comaxe(group2[[j]])
+  }
+     
     
   } 
 
