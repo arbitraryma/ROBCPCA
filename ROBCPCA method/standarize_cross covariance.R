@@ -106,14 +106,15 @@ cross_covariance_lag12 <- function(mts_data) {
   X_t_plus_2 <- mts_data[3:n, ]      # Data from time t+2
   Sigma_2 <- cov(X_t_lag2, X_t_plus_2)
   
-  # Construct the 3p x 3p block matrix
-  combined_matrix <- rbind(
-    cbind(Sigma_0, Sigma_1, Sigma_2),   # First row: [Sigma(0), Sigma(1), Sigma(2)]
-    cbind(t(Sigma_1), Sigma_0, Sigma_1), # Second row: [Sigma(-1), Sigma(0), Sigma(1)]
-    cbind(t(Sigma_2), t(Sigma_1), Sigma_0)  # Third row: [Sigma(-2), Sigma(-1), Sigma(0)]
-  )
+  # Construct the 2p*2p block matrix
+  combined_matrix <- 
+    rbind(cbind(Sigma_0, Sigma_1),
+    cbind(t(Sigma_1), Sigma_0)) +
+    rbind(cbind(Sigma_0, Sigma_2),   # First row: [Gamma(0), Gamma(1)] + [Gamma(0), Gamma(2)]
+    cbind(t(Sigma_2), Sigma_0))      # Second row: [Gamma(-1), Gamma(0)] + [Gamma(-2), Gamma(0)]
+    
   
-  X_t_plus_1 <- mts_data[2:(n-1), ]
+   X_t_plus_1 <- mts_data[2:(n-1), ] # extract the same length (n-1), so we can combine with when doing projection
   
   
   
